@@ -4,34 +4,98 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ログイン｜たまごの巣立ち</title>
-  <link rel="stylesheet" href="../css/common.css">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-  <!-- 共通ヘッダー：Flask化するときは共通テンプレートへ移動できます -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="../tamago-top-page/index.html">
-        <span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span>
-        <span class="brand-name">たまごの巣立ち</span>
+<body class="comp-page page-login">
+  <!-- ===== 共通ヘッダー ===== -->
+  <header class="comp-header">
+    <div class="comp-header__inner">
+      <a class="comp-brand" href="{{ url_for('index') }}" aria-label="たまごの巣立ち トップページへ">
+        <span class="comp-brand__crop">
+          <img src="{{ url_for('static', filename='images/logo-wh.png') }}" alt="たまごの巣立ち">
+        </span>
       </a>
-      <nav class="global-nav"><a href="creators.html">制作者検索</a><a href="request.html">相談・依頼</a><a href="mypage.html">マイページ</a><a href="register.html">新規登録</a></nav>
-      <button class="menu-button" type="button" aria-label="メニューを開く"></button>
+      <button class="comp-menu-button" type="button" aria-label="メニューを開く">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
-  <main>
-    <section class="page-heading"><div class="container"><h1>ログイン</h1><p>すでにアカウントをお持ちの方は、<br>メールアドレスとパスワードを入力してください。</p></div></section>
-    <section class="section"><div class="container">
-      <!-- 現在は見た目のみ。Flask化するときに action と method を設定します -->
-      <form class="card form-card">
-        <div class="form-group"><label for="email">メールアドレス</label><input class="input" id="email" name="email" type="email" placeholder="メールアドレスを入力してください"></div>
-        <div class="form-group"><label for="password">パスワード</label><input class="input" id="password" name="password" type="password" placeholder="パスワードを入力してください"><p class="help" style="text-align:right"><a href="#">パスワードをお忘れの方はこちら</a></p></div>
-        <button class="btn btn-primary btn-block" type="button">ログイン</button>
-        <div class="divider">または</div>
-        <a class="btn btn-outline btn-block" href="register.html">アカウントをお持ちでない方はこちら（新規登録）</a>
-      </form>
-    </div></section>
+
+  <main class="login-main">
+    <!-- ===== ログインページ見出し ===== -->
+    <section class="comp-page-heading login-heading">
+      <div class="comp-container">
+        <h1>ログイン</h1>
+        <p>すでにアカウントをお持ちの方は、<br>メールアドレスとパスワードを入力してログインしてください。</p>
+      </div>
+    </section>
+
+    <!-- ===== ログインフォーム ===== -->
+    <section class="login-form-section">
+      <div class="comp-container">
+        <!-- 現在は画面デザインのみ。認証実装時にactionとmethodを設定します。 -->
+        <form class="login-card">
+          <div class="login-form-group">
+            <label for="email">メールアドレス</label>
+            <div class="auth-input-wrap">
+              <svg class="auth-input-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 5.5h18v13H3zM3.8 6.4 12 13l8.2-6.6"></path>
+              </svg>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="メールアドレスを入力してください">
+            </div>
+          </div>
+
+          <div class="login-form-group login-password-group">
+            <label for="password">パスワード</label>
+            <div class="auth-input-wrap">
+              <svg class="auth-input-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="10" width="14" height="11" rx="2"></rect>
+                <path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"></path>
+              </svg>
+              <input id="password" name="password" type="password" autocomplete="current-password" placeholder="パスワードを入力してください">
+              <button class="password-visibility" type="button" aria-label="パスワードを表示する">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M2.5 12s3.4-5 9.5-5 9.5 5 9.5 5-3.4 5-9.5 5-9.5-5-9.5-5Z"></path>
+                  <circle cx="12" cy="12" r="2.5"></circle>
+                  <path d="m4 4 16 16"></path>
+                </svg>
+              </button>
+            </div>
+            <p class="forgot-password"><a href="#">パスワードをお忘れの方はこちら</a></p>
+          </div>
+
+          <button class="comp-primary-button" type="button">ログイン</button>
+
+          <div class="login-divider"><span>または</span></div>
+
+          <a class="comp-outline-button login-register-link" href="{{ url_for('register') }}">
+            アカウントをお持ちでない方はこちら（新規登録）
+          </a>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== 背景装飾 ===== -->
+    <div class="login-decoration login-decoration--left" aria-hidden="true"><span></span></div>
+    <div class="login-decoration login-decoration--right" aria-hidden="true"><span></span></div>
   </main>
-  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="../tamago-top-page/index.html" style="color:#fff"><span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span><span class="brand-name">たまごの巣立ち</span></a><div class="footer-links"><a href="#">利用規約</a><a href="#">プライバシー</a><a href="#">お問い合わせ</a></div><p class="copyright">&copy; 2026 たまごの巣立ち All rights reserved.</p></div></footer>
+
+  <!-- ===== 共通フッター ===== -->
+  <footer class="comp-footer">
+    <div class="comp-footer__inner">
+      <a class="comp-footer__brand" href="{{ url_for('index') }}" aria-label="たまごの巣立ち トップページへ">
+        <span class="comp-footer__logo-crop">
+          <img src="{{ url_for('static', filename='images/logo-nv.png') }}" alt="たまごの巣立ち">
+        </span>
+      </a>
+      <nav class="comp-footer__links" aria-label="フッターナビゲーション">
+        <a href="#">利用規約</a>
+        <a href="#">プライバシーポリシー</a>
+        <a href="#">お問い合わせ</a>
+      </nav>
+      <p class="comp-footer__copyright">&copy; 2026 たまごの巣立ち All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
