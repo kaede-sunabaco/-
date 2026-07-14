@@ -1,0 +1,16 @@
+# Pythonが自動生成するファイル
+__pycache__/
+*.py[cod]
+
+# 仮想環境
+.venv/
+venv/
+
+# SQLite（開発時に作成予定）
+*.db
+*.sqlite3
+
+# OS・エディター
+.DS_Store
+Thumbs.db
+.vscode/

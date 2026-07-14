@@ -1,0 +1,53 @@
+/* ページ固有CSS。共通部品は common.css にあります。 */
+.auth-links { margin: 20px 0 0; font-size: .87rem; text-align: center; }
+.auth-links a { color: var(--navy); font-weight: 800; text-decoration: underline; }
+.divider { display: flex; align-items: center; gap: 14px; margin: 22px 0; color: var(--muted); font-size: .82rem; }
+.divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+.search-panel { display: grid; gap: 14px; margin-bottom: 32px; }
+.creator-card .user-row { margin-bottom: 14px; }
+.creator-card p { margin: 10px 0; }
+
+.profile-cover { min-height: 180px; display: grid; place-items: center; color: var(--navy); background: linear-gradient(135deg, #dfedff, #f7fbff 60%, #ffe395); border-radius: 10px; font-weight: 800; }
+.profile-head { display: grid; gap: 18px; padding-top: 20px; text-align: center; }
+.profile-head .avatar { width: 104px; height: 104px; margin-inline: auto; font-size: 1.8rem; }
+.profile-meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 18px; }
+.profile-meta div { padding: 12px; background: var(--light-blue); border-radius: 9px; text-align: center; }
+.profile-meta strong { display: block; color: var(--navy); }
+
+.menu-list { display: grid; gap: 10px; }
+.menu-list a { display: flex; align-items: center; justify-content: space-between; padding: 15px; background: #fff; border: 1px solid var(--line); border-radius: 7px; font-weight: 700; }
+.menu-list a span { color: var(--navy); font-size: 1.4rem; }
+.menu-list .menu-label { display: inline-flex; align-items: center; gap: 9px; color: var(--text); font-size: 1rem; }
+.menu-icon { width: 34px; height: 34px; object-fit: contain; }
+.summary-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.summary-row:last-child { border-bottom: 0; }
+.summary-icon { display: grid; place-items: center; flex: 0 0 auto; width: 44px; height: 44px; color: var(--navy); background: var(--light-blue); border-radius: 50%; }
+.summary-icon.image-icon { overflow: hidden; background: transparent; }
+.summary-icon.image-icon img { width: 100%; height: 100%; object-fit: contain; }
+
+.chat-layout { max-width: 860px; margin-inline: auto; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+.chat-case { padding: 18px; background: #fff; border-bottom: 1px solid var(--line); }
+.messages { min-height: 430px; display: flex; flex-direction: column; gap: 20px; padding: 24px 16px; background: #fbfdff; }
+.message-row { display: flex; align-items: flex-end; gap: 9px; }
+.message-row.me { justify-content: flex-end; }
+.message { max-width: 78%; padding: 11px 14px; background: #fff; border: 1px solid var(--line); border-radius: 15px 15px 15px 4px; }
+.message-row.me .message { background: #e7f1ff; border-radius: 15px 15px 4px 15px; }
+.message time { display: block; margin-top: 4px; color: var(--muted); font-size: .68rem; }
+.chat-form { display: flex; gap: 8px; padding: 14px; background: #fff; border-top: 1px solid var(--line); }
+.chat-form .input { min-width: 0; }
+
+.request-summary { position: sticky; top: 100px; }
+.request-summary ul { padding-left: 1.3em; }
+.status-list { display: grid; gap: 14px; }
+.status-card { display: grid; gap: 14px; }
+.status-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.progress { height: 8px; overflow: hidden; background: #e8edf3; border-radius: 99px; }
+.progress span { display: block; height: 100%; background: var(--yellow); border-radius: inherit; }
+
+@media (min-width: 769px) {
+  .search-panel { grid-template-columns: 1.4fr 1fr 1fr auto; align-items: end; }
+  .profile-head { grid-template-columns: auto 1fr; align-items: center; text-align: left; }
+  .profile-head .avatar { margin: 0; }
+  .status-card { grid-template-columns: 1fr auto; align-items: center; }
+}

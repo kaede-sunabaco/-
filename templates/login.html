@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ログイン｜たまごの巣立ち</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <!-- 共通ヘッダー：Flask化するときは共通テンプレートへ移動できます -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../tamago-top-page/index.html">
+        <span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span>
+        <span class="brand-name">たまごの巣立ち</span>
+      </a>
+      <nav class="global-nav"><a href="creators.html">制作者検索</a><a href="request.html">相談・依頼</a><a href="mypage.html">マイページ</a><a href="register.html">新規登録</a></nav>
+      <button class="menu-button" type="button" aria-label="メニューを開く"></button>
+    </div>
+  </header>
+  <main>
+    <section class="page-heading"><div class="container"><h1>ログイン</h1><p>すでにアカウントをお持ちの方は、<br>メールアドレスとパスワードを入力してください。</p></div></section>
+    <section class="section"><div class="container">
+      <!-- 現在は見た目のみ。Flask化するときに action と method を設定します -->
+      <form class="card form-card">
+        <div class="form-group"><label for="email">メールアドレス</label><input class="input" id="email" name="email" type="email" placeholder="メールアドレスを入力してください"></div>
+        <div class="form-group"><label for="password">パスワード</label><input class="input" id="password" name="password" type="password" placeholder="パスワードを入力してください"><p class="help" style="text-align:right"><a href="#">パスワードをお忘れの方はこちら</a></p></div>
+        <button class="btn btn-primary btn-block" type="button">ログイン</button>
+        <div class="divider">または</div>
+        <a class="btn btn-outline btn-block" href="register.html">アカウントをお持ちでない方はこちら（新規登録）</a>
+      </form>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="../tamago-top-page/index.html" style="color:#fff"><span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span><span class="brand-name">たまごの巣立ち</span></a><div class="footer-links"><a href="#">利用規約</a><a href="#">プライバシー</a><a href="#">お問い合わせ</a></div><p class="copyright">&copy; 2026 たまごの巣立ち All rights reserved.</p></div></footer>
+</body>
+</html>
