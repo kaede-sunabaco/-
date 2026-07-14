@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>相談・依頼作成｜たまごの巣立ち</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header"><div class="container header-inner"><a class="brand" href="../tamago-top-page/index.html"><span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span><span class="brand-name">たまごの巣立ち</span></a><nav class="global-nav"><a href="creators.html">制作者検索</a><a href="request.html">相談・依頼</a><a href="mypage.html">マイページ</a><a href="status.html">案件管理</a></nav><button class="menu-button" type="button" aria-label="メニューを開く"></button></div></header>
+  <main>
+    <section class="page-heading"><div class="container"><h1>相談・依頼を作成</h1><p>決まっている範囲だけで大丈夫です。<br>あとからチャットで相談しながら調整できます。</p></div></section>
+    <section class="section"><div class="container split">
+      <!-- name属性はDB設計の requests テーブルに合わせています -->
+      <form class="card"><div class="form-group"><label for="request-title">タイトル<span class="required">必須</span></label><input class="input" id="request-title" name="title" placeholder="例：SNSアイコンを作ってほしい"></div><div class="form-group"><label for="description">相談・依頼内容<span class="required">必須</span></label><textarea id="description" name="description" placeholder="目的、希望する雰囲気、サイズなどを書いてください"></textarea><p class="help">内容が曖昧でも、分かる範囲で入力すれば大丈夫です。</p></div><div class="form-group"><label for="category">カテゴリー</label><select id="category" name="category"><option>選択してください</option><option>Webデザイン</option><option>イラスト</option><option>動画編集</option><option>文章</option></select></div><div class="form-group"><label for="request-budget">予算の目安</label><select id="request-budget" name="budget"><option>相談して決めたい</option><option>〜3,000円</option><option>3,000〜10,000円</option></select></div><div class="form-group"><label for="deadline">希望納期</label><input class="input" id="deadline" name="deadline" type="date"></div><label class="checkbox"><input type="checkbox" name="is_small_project" value="1">初心者向けの小規模案件であることを確認しました</label><button class="btn btn-primary btn-block" type="button" style="margin-top:22px">内容を確認する</button></form>
+      <aside class="card request-summary"><h2>入力のヒント</h2><ul><li>何に使うものか</li><li>好きな色や雰囲気</li><li>参考にしたい作品</li><li>いつまでに必要か</li></ul><p class="muted">個人情報やサイト外の連絡先は書かないようにしましょう。</p></aside>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="../tamago-top-page/index.html" style="color:#fff"><span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span><span class="brand-name">たまごの巣立ち</span></a><div class="footer-links"><a href="#">利用規約</a><a href="#">プライバシー</a><a href="#">お問い合わせ</a></div><p class="copyright">&copy; 2026 たまごの巣立ち All rights reserved.</p></div></footer>
+</body>
+</html>

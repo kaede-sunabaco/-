@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>マイページ｜たまごの巣立ち</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header"><div class="container header-inner"><a class="brand" href="../tamago-top-page/index.html"><span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span><span class="brand-name">たまごの巣立ち</span></a><nav class="global-nav"><a href="creators.html">制作者検索</a><a href="request.html">相談・依頼</a><a href="chat.html">チャット</a><a href="status.html">案件管理</a></nav><button class="menu-button" type="button" aria-label="メニューを開く"></button></div></header>
+  <main>
+    <section class="page-heading"><div class="container"><h1>マイページ</h1><p>依頼者／制作者 共通</p></div></section>
+    <section class="section"><div class="container split">
+      <div class="stack">
+        <article class="card">
+          <h2 class="section-title">ユーザー情報</h2>
+          <div class="user-row"><div class="avatar">T</div><div><strong>たまご 太郎</strong><p class="muted" style="margin:2px 0 0">依頼者アカウント</p></div></div>
+          <div class="summary-row"><span class="user-row"><span class="summary-icon image-icon"><img src="{{ url_for('static', filename='icons/mypage/mail.png') }}" alt=""></span><span><strong>メールアドレス</strong><br><span class="muted">tamago.taro@example.com</span></span></span></div>
+          <button class="btn btn-outline" type="button" style="margin-top:20px">プロフィールを編集</button>
+        </article>
+        <article class="card">
+          <h2 class="section-title">依頼一覧（ステータス別）</h2>
+          <a class="summary-row" href="status.html"><span class="user-row"><span class="summary-icon image-icon"><img src="{{ url_for('static', filename='icons/mypage/consulting.png') }}" alt=""></span><strong>相談中（1件）</strong></span><span>›</span></a>
+          <a class="summary-row" href="status.html"><span class="user-row"><span class="summary-icon" style="background:#fff2c8">✎</span><strong>制作中（1件）</strong></span><span>›</span></a>
+          <a class="summary-row" href="status.html"><span class="user-row"><span class="summary-icon image-icon"><img src="{{ url_for('static', filename='icons/mypage/completed.png') }}" alt=""></span><strong>完了（0件）</strong></span><span>›</span></a>
+          <a class="summary-row" href="status.html"><span class="user-row"><span class="summary-icon image-icon"><img src="{{ url_for('static', filename='icons/mypage/canceled.png') }}" alt=""></span><strong>キャンセル（0件）</strong></span><span>›</span></a>
+        </article>
+      </div>
+      <aside class="stack"><div class="card"><h2 class="section-title">メニュー</h2><nav class="menu-list"><a href="chat.html">メッセージ <span>›</span></a><a href="status.html">案件ステータス <span>›</span></a><a href="creator-detail.html">プロフィール確認 <span>›</span></a><a href="#"><span class="menu-label"><img class="menu-icon" src="{{ url_for('static', filename='icons/mypage/account-settings.png') }}" alt="">アカウント設定</span><span>›</span></a></nav></div><a class="btn btn-primary btn-block" href="request.html">新しく相談・依頼する</a></aside>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="../tamago-top-page/index.html" style="color:#fff"><span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span><span class="brand-name">たまごの巣立ち</span></a><div class="footer-links"><a href="#">利用規約</a><a href="#">プライバシー</a><a href="#">お問い合わせ</a></div><p class="copyright">&copy; 2026 たまごの巣立ち All rights reserved.</p></div></footer>
+</body>
+</html>
