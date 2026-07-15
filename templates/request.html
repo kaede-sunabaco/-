@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>相談・依頼作成｜たまごの巣立ち</title>
-  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/common.css?v=20260716">
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-  <header class="site-header"><div class="container header-inner"><a class="brand" href="{{ url_for('index') }}"><span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span><span class="brand-name">たまごの巣立ち</span></a><nav class="global-nav"><a href="{{ url_for('creators') }}">制作者検索</a><a href="{{ url_for('request_page') }}">相談・依頼</a><a href="{{ url_for('mypage') }}">マイページ</a><a href="{{ url_for('status') }}">案件管理</a></nav><button class="menu-button" type="button" aria-label="メニューを開く"></button></div></header>
+  <header class="site-header"><div class="container header-inner"><a class="brand" href="{{ url_for('index') }}"><span class="brand-crop"><img src="/static/images/logo-wh.png" alt="たまごの巣立ち"></span></a><nav class="global-nav"><a href="{{ url_for('creators') }}">制作者検索</a><a href="{{ url_for('request_page') }}">相談・依頼</a><a href="{{ url_for('mypage') }}">マイページ</a><a href="{{ url_for('status') }}">案件管理</a></nav><button class="menu-button" type="button" aria-label="メニューを開く"></button></div></header>
   {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="container flash-list">{% for category, message in messages %}<p class="flash {{ category }}">{{ message }}</p>{% endfor %}</div>{% endif %}{% endwith %}
   <main>
     <section class="page-heading"><div class="container"><h1>相談・依頼を作成</h1><p>決まっている範囲だけで大丈夫です。<br>あとからチャットで相談しながら調整できます。</p></div></section>
@@ -18,6 +18,7 @@
       <aside class="card request-summary"><h2>入力のヒント</h2><ul><li>何に使うものか</li><li>好きな色や雰囲気</li><li>参考にしたい作品</li><li>いつまでに必要か</li></ul><p class="muted">個人情報やサイト外の連絡先は書かないようにしましょう。</p></aside>
     </div></section>
   </main>
-  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="../tamago-top-page/index.html" style="color:#fff"><span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span><span class="brand-name">たまごの巣立ち</span></a><div class="footer-links"><a href="#">利用規約</a><a href="#">プライバシー</a><a href="#">お問い合わせ</a></div><p class="copyright">&copy; 2026 たまごの巣立ち All rights reserved.</p></div></footer>
+  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="../tamago-top-page/index.html"><span class="footer-logo-crop"><img src="/static/images/logo-nv.png?v=20260716" alt="たまごの巣立ち"></span></a><div class="footer-links"><a href="#">利用規約</a><a href="#">プライバシー</a><a href="#">お問い合わせ</a></div><p class="copyright">&copy; 2026 たまごの巣立ち All rights reserved.</p></div></footer>
+  <script src="/static/js/site-header.js?v=20260716"></script>
 </body>
 </html>

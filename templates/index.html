@@ -6,181 +6,268 @@
   <title>たまごの巣立ち</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/top.css') }}">
 </head>
-<body>
+<body class="top-page">
 
   <!-- ヘッダー -->
-  <header class="header">
-    <div class="logo">
-      <span class="egg egg-white"></span>
-      <span class="egg egg-white"></span>
-      <span class="egg egg-yellow"></span>
-      <span class="logo-text">たまごの巣立ち</span>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="たまごの巣立ち トップページへ">
+        <span class="brand-crop">
+          <img src="/static/images/logo-wh.png" alt="たまごの巣立ち">
+        </span>
+      </a>
+
+      <nav class="header-nav drawer-nav" id="global-menu" aria-label="グローバルナビゲーション">
+        <a href="{{ url_for('index') }}">Top</a>
+        <a href="{{ url_for('mypage') }}">My page</a>
+        <a href="{{ url_for('creators') }}">製作者検索</a>
+        <a href="{{ url_for('register') }}">新規登録</a>
+        <a href="{{ url_for('login') }}">ログイン</a>
+
+        <!-- 既存のFlaskルート式を保持するための非表示リンク -->
+        <a href="{{ url_for('register') }}" hidden aria-hidden="true" tabindex="-1">制作を依頼したい方</a>
+        <a href="{{ url_for('register') }}" hidden aria-hidden="true" tabindex="-1">制作したい方</a>
+        <a href="{{ url_for('request_page') }}" hidden aria-hidden="true" tabindex="-1">相談・依頼をする</a>
+      </nav>
+
+      <button class="menu-button" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="global-menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-
-    <nav class="pc-nav">
-      <a href="{{ url_for('index') }}">トップページ</a>
-      <a href="{{ url_for('register') }}">制作を依頼したい方</a>
-      <a href="{{ url_for('register') }}">制作したい方</a>
-      <a href="{{ url_for('creators') }}">クリエイターを探す</a>
-      <a href="{{ url_for('request_page') }}">相談・依頼をする</a>
-      <a href="{{ url_for('mypage') }}">マイページ</a>
-      <a href="{{ url_for('login') }}">ログイン</a>
-      <a href="{{ url_for('register') }}" class="nav-button">新規登録</a>
-    </nav>
-
-    <button class="menu-button">☰</button>
   </header>
 
-  <!-- メインビジュアル -->
-  <section class="hero">
-    <div class="hero-text">
-      <h1>はじめての依頼も、<br>はじめての実績も、ここから。</h1>
-      <p>
-        初心者クリエイターの「最初の3件」を応援する<br>
-        相談・依頼マッチングサイト
-      </p>
+  <main>
+    <!-- メインビジュアル -->
+    <section class="hero">
+      <img class="hero-leaf" src="/static/images/hero-reaf.png" alt="" aria-hidden="true">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-copy">
+            <h1>はじめての依頼も、<br>はじめての実績も、ここから。</h1>
+            <p>初心者クリエイターの「最初の3件」を応援する<br>相談・依頼マッチングサイト</p>
+          </div>
 
-      <div class="hero-cards pc-only">
-        <div class="hero-card">
-          <div class="circle-icon">👤</div>
-          <h3>依頼したい方</h3>
-          <p>はじめての制作依頼も、安心して相談できます。</p>
-          <a href="{{ url_for('register') }}">依頼者としてはじめる　›</a>
+          <div class="hero-cards pc-only">
+            <article class="hero-card">
+              <div class="image-crop role-icon role-icon--client">
+                <img src="/static/icons/top/Client-icon.png" alt="" aria-hidden="true">
+              </div>
+              <div class="hero-card-heading">
+                <h2>依頼したい方</h2>
+                <span>（依頼者）</span>
+              </div>
+              <p>はじめての制作依頼も、<br>安心して相談できます。</p>
+              <a href="{{ url_for('register') }}">依頼者としてはじめる<span aria-hidden="true">›</span></a>
+            </article>
+
+            <article class="hero-card">
+              <div class="image-crop role-icon role-icon--producer">
+                <img src="/static/icons/top/Producer-icon.png" alt="" aria-hidden="true">
+              </div>
+              <div class="hero-card-heading">
+                <h2>制作したい方</h2>
+                <span>（制作者）</span>
+              </div>
+              <p>はじめての実績づくりを、<br>3件まで応援します。</p>
+              <a href="{{ url_for('register') }}">制作者としてはじめる<span aria-hidden="true">›</span></a>
+            </article>
+          </div>
         </div>
 
-        <div class="hero-card">
-          <div class="circle-icon yellow">✎</div>
-          <h3>制作したい方</h3>
+        <div class="hero-visual">
+          <img src="/static/images/hero-egg.png" alt="たまごから一歩を踏み出す人のイラスト">
+        </div>
+
+        <div class="sp-buttons">
           <p>はじめての実績づくりを、3件まで応援します。</p>
-          <a href="{{ url_for('register') }}">制作者としてはじめる　›</a>
+          <a class="primary-button primary-button--yellow" href="{{ url_for('register') }}">制作者としてはじめる<span aria-hidden="true">›</span></a>
+
+          <p>はじめての依頼も、安心して相談できます。</p>
+          <a class="primary-button" href="{{ url_for('register') }}">依頼者としてはじめる<span aria-hidden="true">›</span></a>
+
+          <p class="login-text">すでにアカウントをお持ちの方はこちら</p>
+          <a class="login-link" href="{{ url_for('login') }}">ログイン</a>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="hero-image">
-      <div class="person">🚶‍♀️</div>
-    </div>
+    <!-- 3つの特徴 -->
+    <section class="features section-blue" aria-labelledby="features-title">
+      <div class="section-inner">
+        <h2 class="section-title" id="features-title"><span>3つの特徴</span></h2>
 
-    <div class="sp-buttons">
-      <p>はじめての実績づくりを、3件まで応援します。</p>
-      <a class="button yellow-button" href="{{ url_for('register') }}">制作者としてはじめる　›</a>
+        <div class="feature-list">
+          <article class="feature-item">
+            <div class="image-crop feature-icon">
+              <img src="/static/icons/top/promise01.png" alt="" aria-hidden="true">
+            </div>
+            <div class="feature-content">
+              <h3>初心者にやさしい環境</h3>
+              <p>小さな一歩から始められるように、<br>シンプルで安心して使える仕組みです。</p>
+            </div>
+          </article>
 
-      <p>はじめての依頼も、安心して相談できます。</p>
-      <a class="button blue-button" href="{{ url_for('register') }}">依頼者としてはじめる　›</a>
+          <article class="feature-item">
+            <div class="image-crop feature-icon">
+              <img src="/static/icons/top/promise02.png" alt="" aria-hidden="true">
+            </div>
+            <div class="feature-content">
+              <h3>チャットで簡単やり取り</h3>
+              <p>依頼から制作、納品まで、<br>すべてサイト内のチャットで完結します。</p>
+            </div>
+          </article>
 
-      <p class="login-text">すでにアカウントをお持ちの方はこちら</p>
-      <a class="login-link" href="{{ url_for('login') }}">ログイン</a>
-    </div>
-  </section>
-
-  <!-- 3つの特徴 -->
-  <section class="features section-blue">
-    <h2>3つの特徴</h2>
-
-    <div class="feature-list">
-      <div class="feature-item">
-        <div class="feature-icon">🤝</div>
-        <h3>初心者にやさしい環境</h3>
-        <p>小さな一歩から始められるように、シンプルで安心して使える仕組みです。</p>
-      </div>
-
-      <div class="feature-item">
-        <div class="feature-icon">💬</div>
-        <h3>チャットで簡単やり取り</h3>
-        <p>相談から制作、納品まで、すべてサイト内のチャットで完結します。</p>
-      </div>
-
-      <div class="feature-item">
-        <div class="feature-icon">☆</div>
-        <h3>最初の3件で「卒業」</h3>
-        <p>実績を3つ作って卒業。次のステージへ進めます。</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ご利用の流れ -->
-  <section class="flow">
-    <h2>ご利用の流れ</h2>
-
-    <div class="flow-list">
-      <div class="flow-item">
-        <span>1</span>
-        <h3>クリエイターを探す</h3>
-        <p>キーワードや条件で探せます</p>
-      </div>
-
-      <div class="flow-item">
-        <span>2</span>
-        <h3>相談・依頼する</h3>
-        <p>チャットで気軽に相談できます</p>
-      </div>
-
-      <div class="flow-item">
-        <span>3</span>
-        <h3>制作・やり取り</h3>
-        <p>やり取りしながら制作を進めます</p>
-      </div>
-
-      <div class="flow-item">
-        <span>4</span>
-        <h3>完了して評価に</h3>
-        <p>3件で「卒業」！次のステージへ</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 依頼例 -->
-  <section class="cases">
-    <h2>新着の相談・依頼例</h2>
-    <p class="section-lead">最近投稿された相談・依頼例です。依頼のヒントにご活用ください。</p>
-
-    <div class="case-list">
-      <div class="case-item">
-        <div class="case-icon">🖥️</div>
-        <div>
-          <h3>ホームページのデザイン相談</h3>
-          <p>制作内容：ホームページデザイン　納期：2週間以内</p>
+          <article class="feature-item">
+            <div class="image-crop feature-icon">
+              <img src="/static/icons/top/promise03.png" alt="" aria-hidden="true">
+            </div>
+            <div class="feature-content">
+              <h3>最初の3件で「卒業」</h3>
+              <p>実績を3つつくったら卒業！<br>次のステージへ進もう。</p>
+            </div>
+          </article>
         </div>
-        <span>›</span>
       </div>
+    </section>
 
-      <div class="case-item">
-        <div class="case-icon">🥚</div>
-        <div>
-          <h3>ロゴデザインのデザイン相談</h3>
-          <p>制作内容：ロゴデザイン　納期：1週間以内</p>
+    <!-- ご利用の流れ -->
+    <section class="flow" aria-labelledby="flow-title">
+      <div class="section-inner">
+        <h2 class="section-title" id="flow-title"><span>ご利用の流れ</span></h2>
+
+        <div class="flow-list">
+          <article class="flow-item">
+            <span class="flow-number">1</span>
+            <div class="image-crop flow-icon"><img src="/static/icons/top/mobile-01.png" alt="" aria-hidden="true"></div>
+            <div class="flow-content"><h3>クリエイターを探す</h3><p>キーワードや条件で<br>検索・閲覧</p></div>
+          </article>
+          <article class="flow-item">
+            <span class="flow-number">2</span>
+            <div class="image-crop flow-icon"><img src="/static/icons/top/mobile-02.png" alt="" aria-hidden="true"></div>
+            <div class="flow-content"><h3>相談・依頼する</h3><p>チャットで気軽に<br>相談できます</p></div>
+          </article>
+          <article class="flow-item">
+            <span class="flow-number">3</span>
+            <div class="image-crop flow-icon"><img src="/static/icons/top/mobile-03.png" alt="" aria-hidden="true"></div>
+            <div class="flow-content"><h3>制作・やり取り</h3><p>やり取りしながら<br>制作を進めます</p></div>
+          </article>
+          <article class="flow-item">
+            <span class="flow-number">4</span>
+            <div class="image-crop flow-icon"><img src="/static/icons/top/mobile-04.png" alt="" aria-hidden="true"></div>
+            <div class="flow-content"><h3>完了して評価に</h3><p>3件で「卒業」！<br>次のステージへ</p></div>
+          </article>
         </div>
-        <span>›</span>
       </div>
+    </section>
 
-      <div class="case-item">
-        <div class="case-icon">🪪</div>
-        <div>
-          <h3>名刺のデザイン印刷依頼</h3>
-          <p>制作内容：名刺デザイン印刷　納期：10日以内</p>
+    <!-- クリエイター紹介（PC） -->
+    <section class="creator-showcase section-blue" aria-labelledby="creator-showcase-title">
+      <div class="section-inner creator-showcase-inner">
+        <div class="showcase-heading">
+          <h2 id="creator-showcase-title">巣立ちのその後 気になるクリエーターたち</h2>
+          <p>たまごの巣立ちを卒業し、今も活躍しているクリエイターの一部をご紹介します。</p>
         </div>
-        <span>›</span>
-      </div>
-    </div>
 
-    <a class="outline-button" href="{{ url_for('request_page') }}">相談・依頼例を探す　›</a>
-  </section>
+        <div class="creator-carousel">
+          <button class="carousel-arrow carousel-arrow--prev" type="button" aria-label="前のクリエイター"><span aria-hidden="true">‹</span></button>
+          <div class="creator-list">
+            <article class="creator-card">
+              <img src="/static/images/creator-01.png" alt="クリエイターのプロフィール写真">
+              <h3>クリエイター名</h3><p>デザイン・ロゴ</p><p class="rating"><span>★</span> 5.0（12件）</p><a href="#">プロフィールを見る</a>
+            </article>
+            <article class="creator-card">
+              <img src="/static/images/creator-02.png" alt="クリエイターのプロフィール写真">
+              <h3>クリエイター名</h3><p>WEB・コーディング</p><p class="rating"><span>★</span> 4.9（8件）</p><a href="#">プロフィールを見る</a>
+            </article>
+            <article class="creator-card">
+              <img src="/static/images/creator-03.png" alt="クリエイターのプロフィール写真">
+              <h3>クリエイター名</h3><p>動画・編集</p><p class="rating"><span>★</span> 5.0（15件）</p><a href="#">プロフィールを見る</a>
+            </article>
+            <article class="creator-card">
+              <img src="/static/images/creator-04.png" alt="クリエイターのプロフィール写真">
+              <h3>クリエイター名</h3><p>イラスト・挿絵</p><p class="rating"><span>★</span> 4.8（6件）</p><a href="#">プロフィールを見る</a>
+            </article>
+          </div>
+          <button class="carousel-arrow carousel-arrow--next" type="button" aria-label="次のクリエイター"><span aria-hidden="true">›</span></button>
+        </div>
+
+        <div class="carousel-dots" aria-hidden="true"><span class="is-active"></span><span></span><span></span><span></span></div>
+        <a class="showcase-button" href="#">依頼待ち たまごクリエイターを見る<span aria-hidden="true">›</span></a>
+      </div>
+    </section>
+
+    <!-- 依頼例 -->
+    <section class="cases" aria-labelledby="cases-title">
+      <div class="section-inner cases-inner">
+        <h2 id="cases-title">新着の相談・依頼例</h2>
+        <p class="section-lead">最近投稿された相談・依頼例です。依頼のヒントにご活用ください。</p>
+
+        <div class="case-list">
+          <article class="case-item">
+            <div class="image-crop case-icon"><img src="/static/icons/top/request-01.png" alt="" aria-hidden="true"></div>
+            <div class="case-content"><h3>ホームページのデザイン相談</h3><p><span>制作内容：ホームページデザイン</span><span>納期：2週間以内</span></p></div>
+            <span class="case-arrow" aria-hidden="true">›</span>
+          </article>
+          <article class="case-item">
+            <div class="image-crop case-icon"><img src="/static/icons/top/request-02.png" alt="" aria-hidden="true"></div>
+            <div class="case-content"><h3>ロゴデザインの相談</h3><p><span>制作内容：ロゴデザイン</span><span>納期：1週間以内</span></p></div>
+            <span class="case-arrow" aria-hidden="true">›</span>
+          </article>
+          <article class="case-item">
+            <div class="image-crop case-icon"><img src="/static/icons/top/request-03.png" alt="" aria-hidden="true"></div>
+            <div class="case-content"><h3>名刺デザインの印刷依頼</h3><p><span>制作内容：名刺デザイン印刷</span><span>納期：10日以内</span></p></div>
+            <span class="case-arrow" aria-hidden="true">›</span>
+          </article>
+        </div>
+
+        <a class="outline-button" href="{{ url_for('request_page') }}">相談・依頼例を探す<span aria-hidden="true">›</span></a>
+      </div>
+    </section>
+  </main>
 
   <!-- フッター -->
   <footer class="footer">
     <div class="footer-logo">
-      <span class="egg egg-white"></span>
-      <span class="egg egg-white"></span>
-      <span class="egg egg-yellow"></span>
-      <span>たまごの巣立ち</span>
+      <span class="footer-logo-crop">
+        <img src="/static/images/logo-nv.png?v=20260716" alt="たまごの巣立ち">
+      </span>
     </div>
-
-    <div class="footer-links">
-      <a href="#">利用規約</a>
-      <a href="#">プライバシー</a>
-      <a href="#">お問い合わせ</a>
-    </div>
-
+    <div class="footer-links"><a href="#">利用規約</a><a href="#">プライバシーポリシー</a><a href="#">お問い合わせ</a></div>
     <p class="copyright">© 2026 たまごの巣立ち All rights reserved.</p>
   </footer>
 
+  <script>
+    (() => {
+      const header = document.querySelector('.site-header');
+      const button = document.querySelector('.menu-button');
+      const menu = document.querySelector('.drawer-nav');
+
+      if (!header || !button || !menu) return;
+
+      const closeMenu = () => {
+        header.classList.remove('is-menu-open');
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('aria-label', 'メニューを開く');
+      };
+
+      button.addEventListener('click', () => {
+        const isOpen = header.classList.toggle('is-menu-open');
+        button.setAttribute('aria-expanded', String(isOpen));
+        button.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
+      });
+
+      menu.addEventListener('click', (event) => {
+        if (event.target.closest('a')) closeMenu();
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeMenu();
+      });
+
+      document.addEventListener('click', (event) => {
+        if (!header.contains(event.target)) closeMenu();
+      });
+    })();
+  </script>
+</body>
+</html>
