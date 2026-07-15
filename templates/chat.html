@@ -8,18 +8,22 @@
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-  <header class="site-header"><div class="container header-inner"><a class="brand" href="../tamago-top-page/index.html"><span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span><span class="brand-name">たまごの巣立ち</span></a><nav class="global-nav"><a href="creators.html">制作者検索</a><a href="request.html">相談・依頼</a><a href="mypage.html">マイページ</a><a href="status.html">案件管理</a></nav><button class="menu-button" type="button" aria-label="メニューを開く"></button></div></header>
+  <header class="site-header"><div class="container header-inner"><a class="brand" href="{{ url_for('index') }}"><span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span><span class="brand-name">たまごの巣立ち</span></a><nav class="global-nav"><a href="{{ url_for('creators') }}">制作者検索</a><a href="{{ url_for('request_page') }}">相談・依頼</a><a href="{{ url_for('mypage') }}">マイページ</a><a href="{{ url_for('status') }}">案件管理</a></nav><button class="menu-button" type="button" aria-label="メニューを開く"></button></div></header>
+  {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="container flash-list">{% for category, message in messages %}<p class="flash {{ category }}">{{ message }}</p>{% endfor %}</div>{% endif %}{% endwith %}
   <main>
     <section class="page-heading"><div class="container"><h1>チャット</h1><p>相談内容や制作イメージを伝えましょう。</p></div></section>
     <section class="section"><div class="container"><div class="chat-layout">
-      <div class="chat-case"><span class="muted">案件タイトル</span><h2 style="margin:2px 0 8px">バナー制作のご相談</h2><p style="margin:0">ステータス：<span class="status-badge">相談中</span> ／ 制作中 ／ 完了 ／ キャンセル</p></div>
+      <div class="chat-case"><span class="muted">案件タイトル</span><h2 style="margin:2px 0 8px">{{ project['title'] }}</h2><p style="margin:0">ステータス：<span class="status-badge">{{ project['status'] }}</span></p></div>
       <div class="messages">
-        <div class="message-row"><div class="avatar" style="width:46px;height:46px">T</div><div class="message">はじめまして。サイトのバナー制作をお願いしたいと考えています。<br>イメージに合うように相談させてください！<time>10:30</time></div></div>
-        <div class="message-row me"><div class="message">はじめまして！ご相談ありがとうございます。<br>ご希望のイメージやサイズなどを教えていただけますか？<time>10:45</time></div><div class="avatar" style="width:46px;height:46px">A</div></div>
-        <div class="message-row"><div class="avatar" style="width:46px;height:46px">T</div><div class="message">サイズは1200px × 400pxで、ナチュラルな雰囲気でお願いします。<time>11:02</time></div></div>
+        {% for item in messages %}
+          {% if item['is_reply'] %}
+          <div class="message-row"><div class="avatar" style="width:46px;height:46px">C</div><div class="message">{{ item['body'] }}<time>{{ item['created_at'][11:16] }}</time></div></div>
+          {% else %}
+          <div class="message-row me"><div class="message">{{ item['body'] }}<time>{{ item['created_at'][11:16] }}</time></div><div class="avatar" style="width:46px;height:46px">{{ g.user['name'][0] | upper }}</div></div>
+          {% endif %}
+        {% endfor %}
       </div>
-      <!-- 送信処理はFlask実装時に追加します -->
-      <form class="chat-form"><input class="input" name="message" type="text" placeholder="メッセージを入力してください"><button class="btn btn-primary" type="button">送信</button></form>
+      <form class="chat-form" method="post" action="{{ url_for('chat') }}"><input type="hidden" name="request_id" value="{{ project['id'] }}"><input class="input" name="message" type="text" placeholder="メッセージを入力してください" required><button class="btn btn-primary" type="submit">送信</button></form>
     </div></div></section>
   </main>
   <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="../tamago-top-page/index.html" style="color:#fff"><span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span><span class="brand-name">たまごの巣立ち</span></a><div class="footer-links"><a href="#">利用規約</a><a href="#">プライバシー</a><a href="#">お問い合わせ</a></div><p class="copyright">&copy; 2026 たまごの巣立ち All rights reserved.</p></div></footer>
