@@ -8,15 +8,34 @@
   <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-  <header class="site-header"><div class="container header-inner"><a class="brand" href="../tamago-top-page/index.html"><span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span><span class="brand-name">たまごの巣立ち</span></a><nav class="global-nav"><a href="creators.html">制作者検索</a><a href="request.html">相談・依頼</a><a href="chat.html">チャット</a><a href="mypage.html">マイページ</a></nav><button class="menu-button" type="button" aria-label="メニューを開く"></button></div></header>
+  <header class="site-header"><div class="container header-inner"><a class="brand" href="{{ url_for('index') }}"><span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span><span class="brand-name">たまごの巣立ち</span></a><nav class="global-nav"><a href="{{ url_for('creators') }}">制作者検索</a><a href="{{ url_for('request_page') }}">相談・依頼</a><a href="{{ url_for('chat') }}">チャット</a><a href="{{ url_for('mypage') }}">マイページ</a></nav><button class="menu-button" type="button" aria-label="メニューを開く"></button></div></header>
+  {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="container flash-list">{% for category, message in messages %}<p class="flash {{ category }}">{{ message }}</p>{% endfor %}</div>{% endif %}{% endwith %}
   <main>
     <section class="page-heading"><div class="container"><h1>案件ステータス管理</h1><p>相談・依頼の進み具合をまとめて確認できます。</p></div></section>
     <section class="section"><div class="container">
-      <div class="actions" style="margin-bottom:22px"><button class="btn btn-primary" type="button">進行中</button><button class="btn btn-outline" type="button">完了</button><button class="btn btn-outline" type="button">すべて</button></div>
+      <div class="actions" style="margin-bottom:22px"><a class="btn btn-primary" href="{{ url_for('request_page') }}">新しい相談・依頼</a><a class="btn btn-outline" href="{{ url_for('mypage') }}">マイページへ戻る</a></div>
       <div class="status-list">
-        <article class="card status-card"><div><span class="status-badge yellow">制作中</span><h2 style="margin:8px 0 2px">SNSアイコン制作</h2><p class="muted" style="margin:0">担当：あおいさん ／ 希望納期：2026年7月30日</p><div class="progress" style="margin-top:16px"><span style="width:60%"></span></div><p class="help">相談 → 内容確定 → <strong>制作中</strong> → 確認 → 完了</p></div><div class="actions"><a class="btn btn-primary" href="chat.html">チャット</a><button class="btn btn-outline" type="button">詳細</button></div></article>
-        <article class="card status-card"><div><span class="status-badge">相談中</span><h2 style="margin:8px 0 2px">イベント用バナーの相談</h2><p class="muted" style="margin:0">担当：そらさん ／ 納期：相談中</p><div class="progress" style="margin-top:16px"><span style="width:20%"></span></div><p class="help"><strong>相談</strong> → 内容確定 → 制作中 → 確認 → 完了</p></div><div class="actions"><a class="btn btn-primary" href="chat.html">チャット</a><button class="btn btn-outline" type="button">詳細</button></div></article>
-        <article class="card status-card"><div><span class="status-badge green">完了</span><h2 style="margin:8px 0 2px">プロフィール文の添削</h2><p class="muted" style="margin:0">担当：ことりさん ／ 完了日：2026年6月18日</p><div class="progress" style="margin-top:16px"><span style="width:100%;background:#38a85d"></span></div></div><button class="btn btn-outline" type="button">詳細</button></article>
+        {% for project in projects %}
+        <article class="card status-card">
+          <div>
+            <span class="status-badge {{ 'green' if project['status'] == '完了' else 'yellow' if project['status'] == '制作中' else '' }}">{{ project['status'] }}</span>
+            <h2 style="margin:8px 0 2px">{{ project['title'] }}</h2>
+            <p class="muted" style="margin:0">カテゴリー：{{ project['category'] or '未設定' }} ／ 希望納期：{{ project['deadline'] or '相談中' }}</p>
+            <div class="progress" style="margin-top:16px"><span style="width:{{ project['progress'] }}%;{% if project['status'] == '完了' %}background:#38a85d{% elif project['status'] == 'キャンセル' %}background:#8b95a5{% endif %}"></span></div>
+            <p class="help">相談 → 内容確定 → 制作中 → 確認 → 完了</p>
+          </div>
+          <form class="actions status-update-form" method="post" action="{{ url_for('status') }}">
+            <input type="hidden" name="request_id" value="{{ project['id'] }}">
+            <a class="btn btn-primary" href="{{ url_for('chat', request_id=project['id']) }}">チャット</a>
+            <select name="status" aria-label="ステータス">
+              {% for item in allowed_statuses %}<option value="{{ item }}" {% if item == project['status'] %}selected{% endif %}>{{ item }}</option>{% endfor %}
+            </select>
+            <button class="btn btn-outline" type="submit">更新</button>
+          </form>
+        </article>
+        {% else %}
+        <div class="card empty-state"><h2>まだ相談・依頼はありません</h2><p class="muted">最初の案件を登録すると、ここで進み具合を管理できます。</p><a class="btn btn-primary" href="{{ url_for('request_page') }}">相談・依頼を作成する</a></div>
+        {% endfor %}
       </div>
     </div></section>
   </main>

@@ -11,24 +11,24 @@
   <!-- 共通ヘッダー：Flask化するときは共通テンプレートへ移動できます -->
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="../tamago-top-page/index.html">
+      <a class="brand" href="{{ url_for('index') }}">
         <span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span>
         <span class="brand-name">たまごの巣立ち</span>
       </a>
-      <nav class="global-nav"><a href="creators.html">制作者検索</a><a href="request.html">相談・依頼</a><a href="mypage.html">マイページ</a><a href="register.html">新規登録</a></nav>
+      <nav class="global-nav"><a href="{{ url_for('creators') }}">制作者検索</a><a href="{{ url_for('request_page') }}">相談・依頼</a><a href="{{ url_for('mypage') }}">マイページ</a><a href="{{ url_for('register') }}">新規登録</a></nav>
       <button class="menu-button" type="button" aria-label="メニューを開く"></button>
     </div>
   </header>
+  {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="container flash-list">{% for category, message in messages %}<p class="flash {{ category }}">{{ message }}</p>{% endfor %}</div>{% endif %}{% endwith %}
   <main>
     <section class="page-heading"><div class="container"><h1>ログイン</h1><p>すでにアカウントをお持ちの方は、<br>メールアドレスとパスワードを入力してください。</p></div></section>
     <section class="section"><div class="container">
-      <!-- 現在は見た目のみ。Flask化するときに action と method を設定します -->
-      <form class="card form-card">
-        <div class="form-group"><label for="email">メールアドレス</label><input class="input" id="email" name="email" type="email" placeholder="メールアドレスを入力してください"></div>
-        <div class="form-group"><label for="password">パスワード</label><input class="input" id="password" name="password" type="password" placeholder="パスワードを入力してください"><p class="help" style="text-align:right"><a href="#">パスワードをお忘れの方はこちら</a></p></div>
-        <button class="btn btn-primary btn-block" type="button">ログイン</button>
+      <form class="card form-card" method="post" action="{{ url_for('login') }}">
+        <div class="form-group"><label for="email">メールアドレス</label><input class="input" id="email" name="email" type="email" value="{{ request.form.get('email', '') }}" placeholder="メールアドレスを入力してください" required></div>
+        <div class="form-group"><label for="password">パスワード</label><input class="input" id="password" name="password" type="password" placeholder="パスワードを入力してください" required><p class="help" style="text-align:right"><a href="#">パスワードをお忘れの方はこちら</a></p></div>
+        <button class="btn btn-primary btn-block" type="submit">ログイン</button>
         <div class="divider">または</div>
-        <a class="btn btn-outline btn-block" href="register.html">アカウントをお持ちでない方はこちら（新規登録）</a>
+        <a class="btn btn-outline btn-block" href="{{ url_for('register') }}">アカウントをお持ちでない方はこちら（新規登録）</a>
       </form>
     </div></section>
   </main>

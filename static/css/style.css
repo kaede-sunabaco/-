@@ -4,6 +4,14 @@
 .divider { display: flex; align-items: center; gap: 14px; margin: 22px 0; color: var(--muted); font-size: .82rem; }
 .divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 
+/* Flaskから表示する成功・エラーメッセージ */
+.flash-list { padding-top: 18px; }
+.flash { max-width: 860px; margin: 0 auto 10px; padding: 13px 16px; border: 1px solid #b9d5fb; border-radius: 8px; color: var(--navy); background: #edf5ff; font-weight: 700; }
+.flash.success { border-color: #a9d8b7; color: #1f6b38; background: #effaf2; }
+.flash.error { border-color: #efb5b5; color: #9c2828; background: #fff1f1; }
+.empty-state { padding: 40px 22px; text-align: center; }
+.empty-state .btn { margin-top: 12px; }
+
 .search-panel { display: grid; gap: 14px; margin-bottom: 32px; }
 .creator-card .user-row { margin-bottom: 14px; }
 .creator-card p { margin: 10px 0; }
@@ -41,6 +49,8 @@
 .request-summary ul { padding-left: 1.3em; }
 .status-list { display: grid; gap: 14px; }
 .status-card { display: grid; gap: 14px; }
+.status-update-form { align-items: center; }
+.status-update-form select { min-width: 110px; }
 .status-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .progress { height: 8px; overflow: hidden; background: #e8edf3; border-radius: 99px; }
 .progress span { display: block; height: 100%; background: var(--yellow); border-radius: inherit; }
