@@ -12,6 +12,9 @@
   {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="container flash-list">{% for category, message in messages %}<p class="flash {{ category }}">{{ message }}</p>{% endfor %}</div>{% endif %}{% endwith %}
   <main>
     <section class="page-heading"><div class="container"><h1>案件ステータス管理</h1><p>相談・依頼の進み具合をまとめて確認できます。</p></div></section>
+    <div class="container">
+      <p role="note" style="margin:24px 0 0;padding:15px 18px;border:2px solid #e6a700;border-radius:9px;color:#624500;background:#fff8dc;font-size:1rem;font-weight:800;text-align:center">活動中の案件は3件まで</p>
+    </div>
     <section class="section"><div class="container">
       <div class="actions" style="margin-bottom:22px"><a class="btn btn-primary" href="{{ url_for('request_page') }}">新しい相談・依頼</a><a class="btn btn-outline" href="{{ url_for('mypage') }}">マイページへ戻る</a></div>
       <div class="status-list">
@@ -21,6 +24,10 @@
             <span class="status-badge {{ 'green' if project['status'] == '完了' else 'yellow' if project['status'] == '制作中' else '' }}">{{ project['status'] }}</span>
             <h2 style="margin:8px 0 2px">{{ project['title'] }}</h2>
             <p class="muted" style="margin:0">カテゴリー：{{ project['category'] or '未設定' }} ／ 希望納期：{{ project['deadline'] or '相談中' }}</p>
+            <label class="form-group status-request-detail" style="display:block;margin-top:16px">
+              <span class="form-label status-request-detail__label">相談・依頼内容</span>
+              <textarea class="input status-request-detail__content" rows="4" readonly>{{ project['description'] or '相談・依頼内容は未入力です。' }}</textarea>
+            </label>
             <div class="progress" style="margin-top:16px"><span style="width:{{ project['progress'] }}%;{% if project['status'] == '完了' %}background:#38a85d{% elif project['status'] == 'キャンセル' %}background:#8b95a5{% endif %}"></span></div>
             <p class="help">相談 → 内容確定 → 制作中 → 確認 → 完了</p>
           </div>

@@ -79,6 +79,7 @@
               </div>
             </details>
 
+            <!-- 予算の目安（現在は非表示）
             <details class="compact-filter-row">
               <summary>
                 <span class="compact-filter-row__main">
@@ -94,6 +95,7 @@
                 <label><input type="radio" name="budget-compact"><span>30,000円〜</span></label>
               </div>
             </details>
+            -->
           </div>
 
           <!-- 画面幅が広いときの展開済みフィルター -->
@@ -134,6 +136,7 @@
               </div>
             </fieldset>
 
+            <!-- 予算の目安（現在は非表示）
             <fieldset class="expanded-filter-row">
               <legend>
                 <span class="creator-filter-icon" aria-hidden="true">￥</span>
@@ -147,6 +150,7 @@
                 <label><input type="radio" name="budget"><span>50,000円〜</span></label>
               </div>
             </fieldset>
+            -->
           </div>
 
           <button class="filter-reset" type="reset"><span aria-hidden="true">↻</span>条件をリセット</button>
@@ -162,7 +166,7 @@
 
         <div class="creator-result-list">
           <a class="creator-result-card" href="{{ url_for('creator_detail') }}">
-            <span class="creator-avatar" aria-hidden="true"></span>
+            <img class="creator-avatar" src="/static/images/creator-05.png" alt="クリエイター05のプロフィール画像" loading="lazy">
             <span class="creator-result-card__body">
               <strong class="creator-name">クリエイター名</strong>
               <span class="creator-tags">
@@ -171,7 +175,9 @@
               <span class="creator-description">やさしいデザインが得意です。</span>
               <span class="creator-meta">
                 <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6l4 2"></path></svg>納期：7日以内</span>
+                <!-- 予算目安（現在は非表示）
                 <span><b aria-hidden="true">￥</b>目安：〜30,000円</span>
+                -->
                 <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"></path><circle cx="12" cy="9" r="2"></circle></svg>東京都</span>
               </span>
             </span>
@@ -179,7 +185,7 @@
           </a>
 
           <a class="creator-result-card" href="{{ url_for('creator_detail') }}">
-            <span class="creator-avatar" aria-hidden="true"></span>
+            <img class="creator-avatar" src="/static/images/creator-06.png" alt="クリエイター06のプロフィール画像" loading="lazy">
             <span class="creator-result-card__body">
               <strong class="creator-name">クリエイター名</strong>
               <span class="creator-tags">
@@ -188,7 +194,9 @@
               <span class="creator-description">やさしいデザインが得意です。</span>
               <span class="creator-meta">
                 <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6l4 2"></path></svg>納期：7日以内</span>
+                <!-- 予算目安（現在は非表示）
                 <span><b aria-hidden="true">￥</b>目安：〜30,000円</span>
+                -->
                 <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"></path><circle cx="12" cy="9" r="2"></circle></svg>東京都</span>
               </span>
             </span>
