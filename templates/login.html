@@ -4,34 +4,80 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ログイン｜たまごの巣立ち</title>
-  <link rel="stylesheet" href="../css/common.css?v=20260716">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-  <!-- 共通ヘッダー：Flask化するときは共通テンプレートへ移動できます -->
+<body class="comp-page page-login">
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="{{ url_for('index') }}">
-        <span class="brand-crop"><img src="/static/images/logo-wh.png" alt="たまごの巣立ち"></span>
+        <span class="brand-crop"><img src="{{ url_for('static', filename='images/logo-wh.png') }}" alt="たまごの巣立ち"></span>
       </a>
       <nav class="global-nav"><a href="{{ url_for('creators') }}">制作者検索</a><a href="{{ url_for('request_page') }}">相談・依頼</a><a href="{{ url_for('mypage') }}">マイページ</a><a href="{{ url_for('register') }}">新規登録</a></nav>
       <button class="menu-button" type="button" aria-label="メニューを開く"></button>
     </div>
   </header>
   {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}<div class="container flash-list">{% for category, message in messages %}<p class="flash {{ category }}">{{ message }}</p>{% endfor %}</div>{% endif %}{% endwith %}
-  <main>
-    <section class="page-heading"><div class="container"><h1>ログイン</h1><p>すでにアカウントをお持ちの方は、<br>メールアドレスとパスワードを入力してください。</p></div></section>
-    <section class="section"><div class="container">
-      <form class="card form-card" method="post" action="{{ url_for('login') }}">
-        <div class="form-group"><label for="email">メールアドレス</label><input class="input" id="email" name="email" type="email" value="{{ request.form.get('email', '') }}" placeholder="メールアドレスを入力してください" required></div>
-        <div class="form-group"><label for="password">パスワード</label><input class="input" id="password" name="password" type="password" placeholder="パスワードを入力してください" required><p class="help" style="text-align:right"><a href="#">パスワードをお忘れの方はこちら</a></p></div>
-        <button class="btn btn-primary btn-block" type="submit">ログイン</button>
-        <div class="divider">または</div>
-        <a class="btn btn-outline btn-block" href="{{ url_for('register') }}">アカウントをお持ちでない方はこちら（新規登録）</a>
-      </form>
-    </div></section>
+
+  <main class="login-main">
+    <!-- ===== ログインページ見出し ===== -->
+    <section class="comp-page-heading login-heading">
+      <div class="comp-container">
+        <h1>ログイン</h1>
+        <p>すでにアカウントをお持ちの方は、<br>メールアドレスとパスワードを入力してログインしてください。</p>
+      </div>
+    </section>
+
+    <!-- ===== ログインフォーム ===== -->
+    <section class="login-form-section">
+      <div class="comp-container">
+        <form class="login-card" method="post" action="{{ url_for('login') }}">
+          <div class="login-form-group">
+            <label for="email">メールアドレス</label>
+            <div class="auth-input-wrap">
+              <svg class="auth-input-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 5.5h18v13H3zM3.8 6.4 12 13l8.2-6.6"></path>
+              </svg>
+              <input id="email" name="email" type="email" autocomplete="email" value="{{ request.form.get('email', '') }}" placeholder="メールアドレスを入力してください" required>
+            </div>
+          </div>
+
+          <div class="login-form-group login-password-group">
+            <label for="password">パスワード</label>
+            <div class="auth-input-wrap">
+              <svg class="auth-input-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="10" width="14" height="11" rx="2"></rect>
+                <path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"></path>
+              </svg>
+              <input id="password" name="password" type="password" autocomplete="current-password" placeholder="パスワードを入力してください" required>
+              <button class="password-visibility" type="button" aria-label="パスワードを表示する">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M2.5 12s3.4-5 9.5-5 9.5 5 9.5 5-3.4 5-9.5 5-9.5-5-9.5-5Z"></path>
+                  <circle cx="12" cy="12" r="2.5"></circle>
+                  <path d="m4 4 16 16"></path>
+                </svg>
+              </button>
+            </div>
+            <p class="forgot-password"><a href="#">パスワードをお忘れの方はこちら</a></p>
+          </div>
+
+          <button class="comp-primary-button" type="submit">ログイン</button>
+
+          <div class="login-divider"><span>または</span></div>
+
+          <a class="comp-outline-button login-register-link" href="{{ url_for('register') }}">
+            アカウントをお持ちでない方はこちら（新規登録）
+          </a>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== 背景装飾 ===== -->
+    <div class="login-decoration login-decoration--left" aria-hidden="true"><span></span></div>
+    <div class="login-decoration login-decoration--right" aria-hidden="true"><span></span></div>
   </main>
-  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="../tamago-top-page/index.html"><span class="footer-logo-crop"><img src="/static/images/logo-nv.png?v=20260716" alt="たまごの巣立ち"></span></a><div class="footer-links"><a href="#">利用規約</a><a href="#">プライバシー</a><a href="#">お問い合わせ</a></div><p class="copyright">&copy; 2026 たまごの巣立ち All rights reserved.</p></div></footer>
-  <script src="/static/js/site-header.js?v=20260716"></script>
+
+  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="{{ url_for('index') }}"><span class="footer-logo-crop"><img src="{{ url_for('static', filename='images/logo-nv.png') }}" alt="たまごの巣立ち"></span></a><div class="footer-links"><a href="#">利用規約</a><a href="#">プライバシー</a><a href="#">お問い合わせ</a></div><p class="copyright">&copy; 2026 たまごの巣立ち All rights reserved.</p></div></footer>
+  <script src="{{ url_for('static', filename='js/site-header.js') }}"></script>
 </body>
 </html>

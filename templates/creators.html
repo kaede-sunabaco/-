@@ -4,24 +4,204 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>制作者検索｜たまごの巣立ち</title>
-  <link rel="stylesheet" href="../css/common.css?v=20260716">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-<body>
-  <header class="site-header"><div class="container header-inner"><a class="brand" href="../tamago-top-page/index.html"><span class="brand-crop"><img src="/static/images/logo-wh.png" alt="たまごの巣立ち"></span></a><nav class="global-nav"><a href="creators.html">制作者検索</a><a href="request.html">相談・依頼</a><a href="mypage.html">マイページ</a><a href="login.html">ログイン</a></nav><button class="menu-button" type="button" aria-label="メニューを開く"></button></div></header>
-  <main>
-    <section class="page-heading"><div class="container"><h1>制作者検索</h1><p>あなたの依頼にぴったりのクリエイターを見つけましょう。<br>キーワードや条件で簡単に検索できます。</p></div></section>
-    <section class="section"><div class="container">
-      <form class="card search-panel"><div><label class="form-label" for="keyword">キーワードで検索</label><input class="input" id="keyword" name="keyword" placeholder="キーワードを入力してください"></div><div><label class="form-label" for="skill">スキル・得意分野</label><select id="skill" name="skill"><option>すべて</option><option>Webデザイン</option><option>イラスト</option><option>動画編集</option></select></div><div><label class="form-label" for="budget">予算の目安</label><select id="budget" name="budget"><option>指定なし</option><option>〜3,000円</option><option>〜10,000円</option></select></div><button class="btn btn-primary" type="button">検索</button></form>
-      <h2 class="section-title">検索結果一覧 <small class="muted" style="font-weight:500">（サンプル3件）</small></h2>
-      <div class="card-grid">
-        <article class="card creator-card"><div class="user-row"><div class="avatar">A</div><div><h3 style="margin:0">あおい</h3><span class="status-badge green">受付中</span></div></div><div class="tag-list"><span class="tag">Webデザイン</span><span class="tag">バナー</span></div><p>やさしい雰囲気のデザインが得意です。</p><p class="help">納期：7日以内　／　目安：〜3,000円</p><a class="btn btn-outline btn-block" href="creator-detail.html">プロフィールを見る</a></article>
-        <article class="card creator-card"><div class="user-row"><div class="avatar">S</div><div><h3 style="margin:0">そら</h3><span class="status-badge green">受付中</span></div></div><div class="tag-list"><span class="tag">イラスト</span><span class="tag">ロゴ</span></div><p>親しみやすいイラストを丁寧に制作します。</p><p class="help">納期：10日以内　／　目安：〜5,000円</p><a class="btn btn-outline btn-block" href="creator-detail.html">プロフィールを見る</a></article>
-        <article class="card creator-card"><div class="user-row"><div class="avatar">M</div><div><h3 style="margin:0">みなと</h3><span class="status-badge yellow">相談可</span></div></div><div class="tag-list"><span class="tag">動画編集</span><span class="tag">字幕</span></div><p>短い動画やテロップ編集から対応します。</p><p class="help">納期：相談　／　目安：〜5,000円</p><a class="btn btn-outline btn-block" href="creator-detail.html">プロフィールを見る</a></article>
+<body class="comp-page page-creators">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="{{ url_for('index') }}">
+        <span class="brand-crop"><img src="{{ url_for('static', filename='images/logo-wh.png') }}" alt="たまごの巣立ち"></span>
+      </a>
+      <nav class="global-nav"><a href="{{ url_for('creators') }}">制作者検索</a><a href="{{ url_for('request_page') }}">相談・依頼</a><a href="{{ url_for('mypage') }}">マイページ</a><a href="{{ url_for('login') }}">ログイン</a></nav>
+      <button class="menu-button" type="button" aria-label="メニューを開く"></button>
+    </div>
+  </header>
+
+  <main class="creators-main">
+    <!-- ===== 制作者検索ページ見出し ===== -->
+    <section class="comp-page-heading creators-heading">
+      <div class="comp-container">
+        <h1>制作者検索</h1>
+        <p>あなたの依頼にぴったりのクリエイターを見つけましょう。<br>キーワードやスキルで簡単に検索できます。</p>
       </div>
-    </div></section>
+    </section>
+
+    <div class="comp-container creators-content">
+      <!-- ===== キーワード・条件検索 ===== -->
+      <form class="creator-search-panel">
+        <div class="keyword-search">
+          <label for="keyword">キーワードで検索</label>
+          <div class="keyword-search__controls">
+            <input id="keyword" name="keyword" type="search" placeholder="キーワードを入力してください">
+            <button type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="m15.5 15.5 5 5"></path></svg>
+              検索
+            </button>
+          </div>
+        </div>
+
+        <div class="creator-filters">
+          <h2>絞り込み（スキル・得意分野・対応可能納期など）<span class="filter-heading-chevron" aria-hidden="true"></span></h2>
+
+          <!-- 画面幅が狭いときの選択式フィルター -->
+          <div class="filter-compact">
+            <details class="compact-filter-row">
+              <summary>
+                <span class="compact-filter-row__main">
+                  <span class="creator-filter-icon creator-filter-icon--pen" aria-hidden="true">✒</span>
+                  <span><strong>スキル・得意分野</strong><small>選択してください</small></span>
+                </span>
+                <span class="comp-chevron" aria-hidden="true"></span>
+              </summary>
+              <div class="compact-filter-options checkbox-options">
+                <label><input type="checkbox" name="skill" value="web"><span>Webデザイン</span></label>
+                <label><input type="checkbox" name="skill" value="logo"><span>ロゴ・バナー制作</span></label>
+                <label><input type="checkbox" name="skill" value="illustration"><span>イラスト・アイコン</span></label>
+                <label><input type="checkbox" name="skill" value="uiux"><span>UI/UXデザイン</span></label>
+                <label><input type="checkbox" name="skill" value="coding"><span>コーディング</span></label>
+              </div>
+            </details>
+
+            <details class="compact-filter-row">
+              <summary>
+                <span class="compact-filter-row__main">
+                  <span class="creator-filter-icon" aria-hidden="true">▦</span>
+                  <span><strong>対応可能納期</strong><small>選択してください</small></span>
+                </span>
+                <span class="comp-chevron" aria-hidden="true"></span>
+              </summary>
+              <div class="compact-filter-options radio-options">
+                <label><input type="radio" name="deadline-compact" checked><span>指定なし</span></label>
+                <label><input type="radio" name="deadline-compact"><span>3日以内</span></label>
+                <label><input type="radio" name="deadline-compact"><span>1週間以内</span></label>
+                <label><input type="radio" name="deadline-compact"><span>2週間以内</span></label>
+              </div>
+            </details>
+
+            <details class="compact-filter-row">
+              <summary>
+                <span class="compact-filter-row__main">
+                  <span class="creator-filter-icon" aria-hidden="true">￥</span>
+                  <span><strong>予算の目安</strong><small>選択してください</small></span>
+                </span>
+                <span class="comp-chevron" aria-hidden="true"></span>
+              </summary>
+              <div class="compact-filter-options radio-options">
+                <label><input type="radio" name="budget-compact" checked><span>指定なし</span></label>
+                <label><input type="radio" name="budget-compact"><span>〜10,000円</span></label>
+                <label><input type="radio" name="budget-compact"><span>10,000円〜30,000円</span></label>
+                <label><input type="radio" name="budget-compact"><span>30,000円〜</span></label>
+              </div>
+            </details>
+          </div>
+
+          <!-- 画面幅が広いときの展開済みフィルター -->
+          <div class="filter-expanded">
+            <fieldset class="expanded-filter-row expanded-filter-row--skills">
+              <legend>
+                <span class="creator-filter-icon creator-filter-icon--pen" aria-hidden="true">✒</span>
+                <span><strong>スキル・得意分野</strong><small>スキルを選択（複数選択可）</small></span>
+              </legend>
+              <div class="expanded-skill-options checkbox-options">
+                <label><input type="checkbox" name="skill-wide" value="web"><span>Webデザイン</span></label>
+                <label><input type="checkbox" name="skill-wide" value="logo"><span>ロゴ・バナー制作</span></label>
+                <label><input type="checkbox" name="skill-wide" value="illustration"><span>イラスト・アイコン</span></label>
+                <label><input type="checkbox" name="skill-wide" value="uiux"><span>UI/UXデザイン</span></label>
+                <label><input type="checkbox" name="skill-wide" value="lp"><span>LP制作</span></label>
+                <label><input type="checkbox" name="skill-wide" value="coding"><span>コーディング</span></label>
+                <label><input type="checkbox" name="skill-wide" value="wordpress"><span>WordPress構築</span></label>
+                <label><input type="checkbox" name="skill-wide" value="movie"><span>動画編集</span></label>
+                <label><input type="checkbox" name="skill-wide" value="sns"><span>SNS運用</span></label>
+                <label><input type="checkbox" name="skill-wide" value="writing"><span>ライティング</span></label>
+                <label><input type="checkbox" name="skill-wide" value="photo"><span>写真撮影・加工</span></label>
+                <label><input type="checkbox" name="skill-wide" value="other"><span>その他</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="expanded-filter-row">
+              <legend>
+                <span class="creator-filter-icon" aria-hidden="true">▦</span>
+                <strong>対応可能納期</strong>
+              </legend>
+              <div class="expanded-radio-options radio-options">
+                <label><input type="radio" name="deadline" checked><span>指定なし</span></label>
+                <label><input type="radio" name="deadline"><span>3日以内</span></label>
+                <label><input type="radio" name="deadline"><span>1週間以内</span></label>
+                <label><input type="radio" name="deadline"><span>2週間以内</span></label>
+                <label><input type="radio" name="deadline"><span>1ヶ月以内</span></label>
+                <label><input type="radio" name="deadline"><span>1ヶ月以上</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="expanded-filter-row">
+              <legend>
+                <span class="creator-filter-icon" aria-hidden="true">￥</span>
+                <strong>予算の目安</strong>
+              </legend>
+              <div class="expanded-radio-options radio-options">
+                <label><input type="radio" name="budget" checked><span>指定なし</span></label>
+                <label><input type="radio" name="budget"><span>〜10,000円</span></label>
+                <label><input type="radio" name="budget"><span>10,000円〜30,000円</span></label>
+                <label><input type="radio" name="budget"><span>30,000円〜50,000円</span></label>
+                <label><input type="radio" name="budget"><span>50,000円〜</span></label>
+              </div>
+            </fieldset>
+          </div>
+
+          <button class="filter-reset" type="reset"><span aria-hidden="true">↻</span>条件をリセット</button>
+        </div>
+      </form>
+
+      <!-- ===== 検索結果一覧 ===== -->
+      <section class="creator-results" aria-labelledby="creator-results-title">
+        <div class="creator-results__heading">
+          <h2 id="creator-results-title">検索結果一覧</h2>
+          <p>12 件見つかりました</p>
+        </div>
+
+        <div class="creator-result-list">
+          <a class="creator-result-card" href="{{ url_for('creator_detail') }}">
+            <span class="creator-avatar" aria-hidden="true"></span>
+            <span class="creator-result-card__body">
+              <strong class="creator-name">クリエイター名</strong>
+              <span class="creator-tags">
+                <span>Webデザイン</span><span>ロゴ・バナー制作</span><span class="optional-tag">SNS運用</span><span>…</span>
+              </span>
+              <span class="creator-description">やさしいデザインが得意です。</span>
+              <span class="creator-meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6l4 2"></path></svg>納期：7日以内</span>
+                <span><b aria-hidden="true">￥</b>目安：〜30,000円</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"></path><circle cx="12" cy="9" r="2"></circle></svg>東京都</span>
+              </span>
+            </span>
+            <span class="creator-card-chevron" aria-hidden="true"></span>
+          </a>
+
+          <a class="creator-result-card" href="{{ url_for('creator_detail') }}">
+            <span class="creator-avatar" aria-hidden="true"></span>
+            <span class="creator-result-card__body">
+              <strong class="creator-name">クリエイター名</strong>
+              <span class="creator-tags">
+                <span>Webデザイン</span><span>ロゴ・バナー制作</span><span class="optional-tag">SNS運用</span><span>…</span>
+              </span>
+              <span class="creator-description">やさしいデザインが得意です。</span>
+              <span class="creator-meta">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6l4 2"></path></svg>納期：7日以内</span>
+                <span><b aria-hidden="true">￥</b>目安：〜30,000円</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"></path><circle cx="12" cy="9" r="2"></circle></svg>東京都</span>
+              </span>
+            </span>
+            <span class="creator-card-chevron" aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <button class="creator-more-button" type="button">もっと見る<span class="comp-chevron" aria-hidden="true"></span></button>
+      </section>
+    </div>
   </main>
-  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="../tamago-top-page/index.html"><span class="footer-logo-crop"><img src="/static/images/logo-nv.png?v=20260716" alt="たまごの巣立ち"></span></a><div class="footer-links"><a href="#">利用規約</a><a href="#">プライバシー</a><a href="#">お問い合わせ</a></div><p class="copyright">&copy; 2026 たまごの巣立ち All rights reserved.</p></div></footer>
-  <script src="/static/js/site-header.js?v=20260716"></script>
+
+  <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="{{ url_for('index') }}"><span class="footer-logo-crop"><img src="{{ url_for('static', filename='images/logo-nv.png') }}" alt="たまごの巣立ち"></span></a><div class="footer-links"><a href="#">利用規約</a><a href="#">プライバシー</a><a href="#">お問い合わせ</a></div><p class="copyright">&copy; 2026 たまごの巣立ち All rights reserved.</p></div></footer>
+  <script src="{{ url_for('static', filename='js/site-header.js') }}"></script>
 </body>
 </html>
