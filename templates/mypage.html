@@ -6,6 +6,62 @@
   <title>マイページ｜たまごの巣立ち</title>
   <link rel="stylesheet" href="../css/common.css">
   <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .account-accordion { overflow: hidden; background: #fff; border: 1px solid var(--line); border-radius: 9px; box-shadow: 0 4px 16px rgba(18, 54, 94, .05); }
+    .account-accordion__summary { display: flex; min-height: 66px; align-items: center; justify-content: space-between; gap: 12px; padding: 14px; font-weight: 800; cursor: pointer; list-style: none; }
+    .account-accordion__summary::-webkit-details-marker { display: none; }
+    .account-accordion__summary:focus-visible { outline: 3px solid rgba(20, 89, 173, .25); outline-offset: -3px; }
+    .account-accordion__chevron { width: 10px; height: 10px; flex: 0 0 auto; border-right: 2px solid var(--navy); border-bottom: 2px solid var(--navy); transform: rotate(45deg) translate(-2px, 2px); transition: transform .2s ease; }
+    .account-accordion[open] .account-accordion__chevron { transform: rotate(225deg) translate(-2px, 2px); }
+    .account-accordion__content { border-top: 1px solid var(--line); }
+    .account-accordion__heading { margin: 0; padding: 14px 15px; color: var(--text); background: #fbfdff; border-bottom: 1px solid var(--line); font-size: .88rem; font-weight: 800; line-height: 1.55; }
+    .account-setting-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 14px 15px; border-bottom: 1px solid var(--line); }
+    .account-setting-row:last-child { border-bottom: 0; }
+    .account-setting-row__text { min-width: 0; }
+    .account-setting-row__text strong { display: block; margin-bottom: 3px; font-size: .84rem; line-height: 1.5; }
+    .account-setting-row__text p { margin: 0; overflow-wrap: anywhere; color: #26364d; font-size: .8rem; line-height: 1.55; }
+    .account-edit-button { min-width: 72px; min-height: 40px; padding: 7px 10px; color: var(--navy); background: #fff; border: 1px solid #b8cdf0; border-radius: 6px; box-shadow: 0 2px 7px rgba(20, 89, 173, .06); font-size: .78rem; font-weight: 800; white-space: nowrap; transition: background-color .2s, border-color .2s, transform .2s; }
+    .account-edit-button:hover { background: var(--light-blue); border-color: var(--blue); transform: translateY(-1px); }
+    .account-edit-button:focus-visible { outline: 3px solid rgba(20, 89, 173, .2); outline-offset: 2px; }
+    .project-status-accordions { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; }
+    .project-status-accordion { background: #fff; border-bottom: 1px solid var(--line); }
+    .project-status-accordion:last-child { border-bottom: 0; }
+    .project-status-summary { display: flex; min-height: 68px; align-items: center; justify-content: space-between; gap: 14px; padding: 12px 16px; cursor: pointer; list-style: none; }
+    .project-status-summary::-webkit-details-marker, .message-accordion__summary::-webkit-details-marker { display: none; }
+    .project-status-summary:focus-visible, .message-accordion__summary:focus-visible { outline: 3px solid rgba(20, 89, 173, .2); outline-offset: -3px; }
+    .project-accordion-chevron { width: 11px; height: 11px; flex: 0 0 auto; border-right: 2px solid var(--text); border-bottom: 2px solid var(--text); transform: rotate(45deg) translate(-2px, 2px); transition: transform .2s ease; }
+    .project-status-accordion[open] .project-accordion-chevron, .message-accordion[open] .project-accordion-chevron { transform: rotate(225deg) translate(-2px, 2px); }
+    .project-status-content { display: grid; gap: 14px; padding: 16px; background: #fbfdff; border-top: 1px solid var(--line); }
+    .project-item { padding: 18px; background: #fff; border: 1px solid var(--line); border-radius: 9px; box-shadow: 0 4px 14px rgba(18, 54, 94, .05); }
+    .project-item__eyebrow { margin: 0 0 5px; color: var(--blue); font-size: .72rem; font-weight: 800; }
+    .project-item__header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .project-item__title { margin: 0; color: var(--text); font-size: 1rem; line-height: 1.5; }
+    .project-item__deadline { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 10px 0 0; color: #485872; font-size: .8rem; }
+    .project-item__deadline span { font-weight: 800; }
+    .project-item__deadline time { color: var(--text); font-weight: 700; }
+    .project-item__actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 14px; }
+    .project-item__actions .project-item__deadline, .project-item__actions .project-status-link, .project-item__actions .project-chat-button { margin: 0; }
+    .project-status-label { display: inline-flex; flex: 0 0 auto; padding: 4px 9px; border-radius: 6px; font-size: .72rem; font-weight: 800; white-space: nowrap; }
+    .project-status-label--consulting { color: #0b4fba; background: #e8f1ff; }
+    .project-status-label--working { color: #8a6200; background: #fff2c8; }
+    .project-status-label--completed { color: #19763a; background: #e2f6e7; }
+    .project-status-label--canceled { color: #626a76; background: #edf0f3; }
+    .project-chat-button { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; gap: 7px; margin: 14px 0 0 auto; padding: 8px 13px; color: var(--navy); background: #fff; border: 1px solid var(--blue); border-radius: 6px; font-size: .8rem; font-weight: 800; transition: background-color .2s, transform .2s; }
+    .project-chat-button:hover { background: var(--light-blue); transform: translateY(-1px); }
+    .project-chat-button:focus-visible { outline: 3px solid rgba(20, 89, 173, .2); outline-offset: 2px; }
+    .project-chat-button img { width: 23px; height: 23px; object-fit: contain; }
+    .project-status-link { display: flex; width: max-content; align-items: center; justify-content: flex-start; gap: 5px; margin: 12px 0 0; color: var(--navy); font-size: .78rem; font-weight: 800; }
+    .project-status-link:hover { text-decoration: underline; }
+    .empty-projects { margin: 0; padding: 18px; color: var(--muted); background: #fff; border: 1px dashed #bcc9d9; border-radius: 8px; font-size: .84rem; text-align: center; }
+    .message-accordion { overflow: hidden; background: #fff; border: 1px solid var(--line); border-radius: 9px; }
+    .message-accordion__summary { display: flex; min-height: 66px; align-items: center; justify-content: space-between; gap: 12px; padding: 14px; font-weight: 800; cursor: pointer; list-style: none; }
+    .message-project-list { display: grid; gap: 10px; padding: 12px; background: #fbfdff; border-top: 1px solid var(--line); }
+    .message-project-list .project-item { padding: 13px; }
+    .message-project-list .project-item__title { font-size: .85rem; }
+    .message-project-list .project-chat-button { width: 100%; margin-top: 11px; }
+    .menu-list .message-all-link { display: flex; justify-content: center; padding: 10px; color: var(--navy); background: transparent; border: 0; font-size: .76rem; text-decoration: underline; }
+    @media (max-width: 480px) { .project-item__header { display: grid; } .project-status-label { width: max-content; } .project-chat-button { width: 100%; } .project-item__actions { align-items: stretch; overflow-x: auto; } .project-item__actions .project-chat-button { width: auto; } }
+  </style>
 </head>
 <body>
   <header class="site-header"><div class="container header-inner"><a class="brand" href="{{ url_for('index') }}"><span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span><span class="brand-name">たまごの巣立ち</span></a><nav class="global-nav"><a href="{{ url_for('creators') }}">制作者検索</a><a href="{{ url_for('request_page') }}">相談・依頼</a><a href="{{ url_for('chat') }}">チャット</a><a href="{{ url_for('status') }}">案件管理</a></nav><button class="menu-button" type="button" aria-label="メニューを開く"></button></div></header>
@@ -22,15 +78,167 @@
         </article>
         <article class="card">
           <h2 class="section-title">依頼一覧（ステータス別）</h2>
-          <a class="summary-row" href="{{ url_for('status') }}"><span class="user-row"><span class="summary-icon image-icon"><img src="{{ url_for('static', filename='icons/mypage/consulting.png') }}" alt=""></span><strong>相談中（{{ counts['相談中'] }}件）</strong></span><span>›</span></a>
-          <a class="summary-row" href="{{ url_for('status') }}"><span class="user-row"><span class="summary-icon" style="background:#fff2c8">✎</span><strong>制作中（{{ counts['制作中'] }}件）</strong></span><span>›</span></a>
-          <a class="summary-row" href="{{ url_for('status') }}"><span class="user-row"><span class="summary-icon image-icon"><img src="{{ url_for('static', filename='icons/mypage/completed.png') }}" alt=""></span><strong>完了（{{ counts['完了'] }}件）</strong></span><span>›</span></a>
-          <a class="summary-row" href="{{ url_for('status') }}"><span class="user-row"><span class="summary-icon image-icon"><img src="{{ url_for('static', filename='icons/mypage/canceled.png') }}" alt=""></span><strong>キャンセル（{{ counts['キャンセル'] }}件）</strong></span><span>›</span></a>
+          <div class="project-status-accordions">
+            <details class="project-status-accordion" open>
+              <summary class="project-status-summary">
+                <span class="user-row"><span class="summary-icon image-icon"><img src="{{ url_for('static', filename='icons/mypage/consulting.png') }}" alt=""></span><strong title="登録データ件数：{{ counts['相談中'] }}件">相談中（1件）</strong></span>
+                <span class="project-accordion-chevron" aria-hidden="true"></span>
+              </summary>
+              <div class="project-status-content">
+                <article class="project-item">
+                  <p class="project-item__eyebrow">案件1</p>
+                  <div class="project-item__header"><h3 class="project-item__title">バナー制作のご相談</h3><span class="project-status-label project-status-label--consulting">相談中</span></div>
+                  <div class="project-item__actions">
+                    <p class="project-item__deadline"><span>希望納期</span><time datetime="2025-05-30">2025/05/30</time></p>
+                    <a class="project-status-link" href="{{ url_for('status') }}">案件管理ページで確認 <span aria-hidden="true">›</span></a>
+                    <button class="project-chat-button" type="button" data-open-chat aria-label="バナー制作のご相談のチャットを開く"><img src="../static/icons/mypage/consulting.png" alt="">チャットを開く</button>
+                  </div>
+                </article>
+              </div>
+            </details>
+            <details class="project-status-accordion">
+              <summary class="project-status-summary">
+                <span class="user-row"><span class="summary-icon" style="background:#fff2c8">✎</span><strong title="登録データ件数：{{ counts['制作中'] }}件">制作中（1件）</strong></span>
+                <span class="project-accordion-chevron" aria-hidden="true"></span>
+              </summary>
+              <div class="project-status-content">
+                <article class="project-item">
+                  <p class="project-item__eyebrow">案件2</p>
+                  <div class="project-item__header"><h3 class="project-item__title">ECサイトのLP制作について</h3><span class="project-status-label project-status-label--working">制作中</span></div>
+                  <div class="project-item__actions">
+                    <p class="project-item__deadline"><span>希望納期</span><time datetime="2025-06-10">2025/06/10</time></p>
+                    <a class="project-status-link" href="{{ url_for('status') }}">案件管理ページで確認 <span aria-hidden="true">›</span></a>
+                    <button class="project-chat-button" type="button" data-open-chat aria-label="ECサイトのLP制作についてのチャットを開く"><img src="../static/icons/mypage/consulting.png" alt="">チャットを開く</button>
+                  </div>
+                </article>
+              </div>
+            </details>
+            <details class="project-status-accordion">
+              <summary class="project-status-summary">
+                <span class="user-row"><span class="summary-icon image-icon"><img src="{{ url_for('static', filename='icons/mypage/completed.png') }}" alt=""></span><strong title="登録データ件数：{{ counts['完了'] }}件">完了（1件）</strong></span>
+                <span class="project-accordion-chevron" aria-hidden="true"></span>
+              </summary>
+              <div class="project-status-content">
+                <article class="project-item">
+                  <p class="project-item__eyebrow">案件3</p>
+                  <div class="project-item__header"><h3 class="project-item__title">コーポレートサイトのデザイン改修</h3><span class="project-status-label project-status-label--completed">完了</span></div>
+                  <div class="project-item__actions">
+                    <p class="project-item__deadline"><span>希望納期</span><time datetime="2025-06-30">2025/06/30</time></p>
+                    <a class="project-status-link" href="{{ url_for('status') }}">案件管理ページで確認 <span aria-hidden="true">›</span></a>
+                    <button class="project-chat-button" type="button" data-open-chat aria-label="コーポレートサイトのデザイン改修のチャットを開く"><img src="../static/icons/mypage/consulting.png" alt="">チャットを開く</button>
+                  </div>
+                </article>
+              </div>
+            </details>
+            <details class="project-status-accordion">
+              <summary class="project-status-summary">
+                <span class="user-row"><span class="summary-icon image-icon"><img src="{{ url_for('static', filename='icons/mypage/canceled.png') }}" alt=""></span><strong title="登録データ件数：{{ counts['キャンセル'] }}件">キャンセル（0件）</strong></span>
+                <span class="project-accordion-chevron" aria-hidden="true"></span>
+              </summary>
+              <div class="project-status-content">
+                <p class="empty-projects">キャンセルされた案件はありません。</p>
+                <a class="project-status-link" href="{{ url_for('status') }}">案件管理ページで確認 <span aria-hidden="true">›</span></a>
+              </div>
+            </details>
+          </div>
         </article>
       </div>
-      <aside class="stack"><div class="card"><h2 class="section-title">メニュー</h2><nav class="menu-list"><a href="{{ url_for('chat') }}">メッセージ <span>›</span></a><a href="{{ url_for('status') }}">案件ステータス <span>›</span></a><a href="{{ url_for('creator_detail') }}">プロフィール確認 <span>›</span></a><a href="#"><span class="menu-label"><img class="menu-icon" src="{{ url_for('static', filename='icons/mypage/account-settings.png') }}" alt="">アカウント設定</span><span>›</span></a><a href="{{ url_for('logout') }}">ログアウト <span>›</span></a></nav></div><a class="btn btn-primary btn-block" href="{{ url_for('request_page') }}">新しく相談・依頼する</a></aside>
+      <aside class="stack">
+        <div class="card">
+          <h2 class="section-title">メニュー</h2>
+          <nav class="menu-list">
+            <details class="message-accordion">
+              <summary class="message-accordion__summary">
+                <span class="menu-label"><img class="menu-icon" src="../static/icons/mypage/consulting.png" alt="">メッセージ</span>
+                <span class="project-accordion-chevron" aria-hidden="true"></span>
+              </summary>
+              <div class="message-project-list">
+                <article class="project-item">
+                  <p class="project-item__eyebrow">案件1</p>
+                  <div class="project-item__header"><h3 class="project-item__title">バナー制作のご相談</h3><span class="project-status-label project-status-label--consulting">相談中</span></div>
+                  <button class="project-chat-button" type="button" data-open-chat aria-label="バナー制作のご相談のチャットを開く"><img src="../static/icons/mypage/consulting.png" alt="">チャットを開く</button>
+                </article>
+                <article class="project-item">
+                  <p class="project-item__eyebrow">案件2</p>
+                  <div class="project-item__header"><h3 class="project-item__title">ECサイトのLP制作について</h3><span class="project-status-label project-status-label--working">制作中</span></div>
+                  <button class="project-chat-button" type="button" data-open-chat aria-label="ECサイトのLP制作についてのチャットを開く"><img src="../static/icons/mypage/consulting.png" alt="">チャットを開く</button>
+                </article>
+                <article class="project-item">
+                  <p class="project-item__eyebrow">案件3</p>
+                  <div class="project-item__header"><h3 class="project-item__title">コーポレートサイトのデザイン改修</h3><span class="project-status-label project-status-label--completed">完了</span></div>
+                  <button class="project-chat-button" type="button" data-open-chat aria-label="コーポレートサイトのデザイン改修のチャットを開く"><img src="../static/icons/mypage/consulting.png" alt="">チャットを開く</button>
+                </article>
+                <a id="mypage-chat-route" class="message-all-link" href="{{ url_for('chat') }}">すべてのメッセージを見る</a>
+              </div>
+            </details>
+            <a href="{{ url_for('status') }}">案件ステータス <span>›</span></a>
+            <a href="{{ url_for('creator_detail') }}">プロフィール確認 <span>›</span></a>
+            <details class="account-accordion">
+              <summary class="account-accordion__summary">
+                <span class="menu-label"><img class="menu-icon" src="{{ url_for('static', filename='icons/mypage/account-settings.png') }}" alt="">アカウント設定</span>
+                <span class="account-accordion__chevron" aria-hidden="true"></span>
+              </summary>
+              <div class="account-accordion__content">
+                <p class="account-accordion__heading">プロフィール・アカウント情報の確認 / 変更</p>
+                <div class="account-setting-row">
+                  <div class="account-setting-row__text">
+                    <strong>ユーザー名</strong>
+                    <p>たまご 太郎</p>
+                  </div>
+                  <button class="account-edit-button" type="button" aria-label="ユーザー名を編集する">編集する</button>
+                </div>
+                <div class="account-setting-row">
+                  <div class="account-setting-row__text">
+                    <strong>メールアドレス</strong>
+                    <p>tamago.taro@example.com</p>
+                  </div>
+                  <button class="account-edit-button" type="button" aria-label="メールアドレスを編集する">編集する</button>
+                </div>
+                <div class="account-setting-row">
+                  <div class="account-setting-row__text">
+                    <strong>パスワード</strong>
+                    <p>********</p>
+                  </div>
+                  <button class="account-edit-button" type="button" aria-label="パスワードを編集する">編集する</button>
+                </div>
+                <div class="account-setting-row">
+                  <div class="account-setting-row__text">
+                    <strong>プロフィール（自己紹介）</strong>
+                    <p>はじめまして。Web制作を中心に活動しています。</p>
+                  </div>
+                  <button class="account-edit-button" type="button" aria-label="プロフィールを編集する">編集する</button>
+                </div>
+                <div class="account-setting-row">
+                  <div class="account-setting-row__text">
+                    <strong>スキル・得意なこと</strong>
+                    <p>バナー制作 / LP制作 / コーディング</p>
+                  </div>
+                  <button class="account-edit-button" type="button" aria-label="スキルを編集する">編集する</button>
+                </div>
+                <div class="account-setting-row">
+                  <div class="account-setting-row__text">
+                    <strong>ポートフォリオ・SNSリンク</strong>
+                    <p>https://example.com</p>
+                  </div>
+                  <button class="account-edit-button" type="button" aria-label="ポートフォリオ・SNSリンクを編集する">編集する</button>
+                </div>
+              </div>
+            </details>
+            <a href="{{ url_for('logout') }}">ログアウト <span>›</span></a>
+          </nav>
+        </div>
+        <a class="btn btn-primary btn-block" href="{{ url_for('request_page') }}">新しく相談・依頼する</a>
+      </aside>
     </div></section>
   </main>
   <footer class="site-footer"><div class="container footer-inner"><a class="brand" href="../tamago-top-page/index.html" style="color:#fff"><span class="brand-eggs"><span class="brand-egg"></span><span class="brand-egg"></span><span class="brand-egg yellow"></span></span><span class="brand-name">たまごの巣立ち</span></a><div class="footer-links"><a href="#">利用規約</a><a href="#">プライバシー</a><a href="#">お問い合わせ</a></div><p class="copyright">&copy; 2026 たまごの巣立ち All rights reserved.</p></div></footer>
+  <script>
+    document.querySelectorAll('[data-open-chat]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var chatRoute = document.getElementById('mypage-chat-route');
+        if (chatRoute) window.location.href = chatRoute.href;
+      });
+    });
+  </script>
 </body>
 </html>
